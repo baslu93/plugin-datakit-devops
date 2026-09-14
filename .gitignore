@@ -1,5 +1,4 @@
 node_modules
-test/
 lib
 oclif.manifest.json
 *.js.map
