@@ -8,7 +8,7 @@ import {
 } from '../../../../helpers/deploymentStatusPoller.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('plugin-devops-datakit', 'datakit.devops.deploy.status');
+const messages = Messages.loadMessages('plugin-datakit-devops', 'datakit.devops.deploy.status');
 
 export type DatakitDevopsStatusResult = {
   jobId: string;

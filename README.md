@@ -1,7 +1,7 @@
-# plugin-devops-datakit
+# plugin-datakit-devops
 
-[![Version](https://img.shields.io/npm/v/plugin-devops-datakit.svg)](https://npmjs.org/package/plugin-devops-datakit)
-[![License](https://img.shields.io/npm/l/plugin-devops-datakit.svg)](https://github.com/baslu93/plugin-devops-datakit/blob/main/LICENSE)
+[![Version](https://img.shields.io/npm/v/plugin-datakit-devops.svg)](https://npmjs.org/package/plugin-datakit-devops)
+[![License](https://img.shields.io/npm/l/plugin-datakit-devops.svg)](https://github.com/baslu93/plugin-datakit-devops/blob/main/LICENSE)
 
 A Salesforce CLI plugin for deploying and tracking Data 360 DevOps DataKits using the Data 360 Connect API.
 
@@ -15,7 +15,7 @@ A DevOps DataKit is a versioned bundle of Data 360 components that can be promot
 ## Installation
 
 ```sh
-sf plugins install plugin-devops-datakit
+sf plugins install plugin-datakit-devops
 ```
 
 ## Contributing
@@ -23,8 +23,8 @@ sf plugins install plugin-devops-datakit
 To work on this plugin locally, clone the repo and link it into your Salesforce CLI:
 
 ```sh
-git clone https://github.com/baslu93/plugin-devops-datakit.git
-cd plugin-devops-datakit
+git clone https://github.com/baslu93/plugin-datakit-devops.git
+cd plugin-datakit-devops
 npm install
 sf plugins link .
 ```
@@ -38,7 +38,7 @@ npm run build
 ## Commands
 
 <!-- toc -->
-* [plugin-devops-datakit](#plugin-devops-datakit)
+* [plugin-datakit-devops](#plugin-datakit-devops)
 <!-- tocstop -->
 
 <!-- commands -->
