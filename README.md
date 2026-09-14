@@ -1,7 +1,7 @@
-# plugin-datakit
+# plugin-devops-datakit
 
-[![Version](https://img.shields.io/npm/v/plugin-datakit.svg)](https://npmjs.org/package/plugin-datakit)
-[![License](https://img.shields.io/npm/l/plugin-datakit.svg)](https://github.com/baslu93/plugin-datakit/blob/main/LICENSE)
+[![Version](https://img.shields.io/npm/v/plugin-devops-datakit.svg)](https://npmjs.org/package/plugin-devops-datakit)
+[![License](https://img.shields.io/npm/l/plugin-devops-datakit.svg)](https://github.com/baslu93/plugin-devops-datakit/blob/main/LICENSE)
 
 A Salesforce CLI plugin for working with Data Cloud DataKits.
 
@@ -11,12 +11,11 @@ DataKits are bundles of Data Cloud components (data streams, data lake objects, 
 
 - **Deploy** a DevOps DataKit to an org via the Data Cloud Connect API, with automatic async polling until the deployment completes.
 - **Check status** of a running deployment by job ID — either immediately or by waiting until a terminal state is reached.
-- **Clean** local DataKit metadata by stripping generated fields (KeyQualifier, rel\_N\_end) that must be removed before deployment.
 
 ## Installation
 
 ```sh
-sf plugins install plugin-datakit
+sf plugins install plugin-devops-datakit
 ```
 
 ## Contributing
@@ -24,8 +23,8 @@ sf plugins install plugin-datakit
 To work on this plugin locally, clone the repo and link it into your Salesforce CLI:
 
 ```sh
-git clone https://github.com/baslu93/plugin-datakit.git
-cd plugin-datakit
+git clone https://github.com/baslu93/plugin-devops-datakit.git
+cd plugin-devops-datakit
 npm install
 sf plugins link .
 ```
@@ -39,46 +38,12 @@ npm run build
 ## Commands
 
 <!-- toc -->
-* [plugin-datakit](#plugin-datakit)
+* [plugin-devops-datakit](#plugin-devops-datakit)
 <!-- tocstop -->
 
 <!-- commands -->
-* [`sf datakit clean`](#sf-datakit-clean)
 * [`sf datakit deploy devops start`](#sf-datakit-deploy-devops-start)
 * [`sf datakit deploy devops status`](#sf-datakit-deploy-devops-status)
-
-## `sf datakit clean`
-
-Clean a DataKit by removing generated fields from its DLM objects.
-
-```
-USAGE
-  $ sf datakit clean -p <value> [-n <value>]
-
-FLAGS
-  -n, --developer-name=<value>  Developer name of the DataPackageKitDefinition whose DLM objects should be cleaned. If
-                                omitted, all __dlm objects under the source path are cleaned.
-  -p, --source-path=<value>     (required) Path to the local directory containing the DataKit metadata.
-
-DESCRIPTION
-  Clean a DataKit by removing generated fields from its DLM objects.
-
-  Deletes KeyQualifier fields and rel_<number>_end relationship fields from the DLM object field files under the source
-  path. Also checks all dataKitObjectTemplate entityPayload JSON for any references to the removed fields and strips
-  those objects. Use this before deploying to a target org when those generated fields are not required.
-
-  See https://help.salesforce.com/s/articleView?id=005224006&type=1 for the Salesforce guidance this command is based
-  on.
-
-EXAMPLES
-  Clean a specific DataKit:
-
-    $ sf datakit clean --developer-name MyDataKit --source-path ./force-app
-
-  Clean all DLM objects under a path:
-
-    $ sf datakit clean --source-path ./force-app
-```
 
 ## `sf datakit deploy devops start`
 
