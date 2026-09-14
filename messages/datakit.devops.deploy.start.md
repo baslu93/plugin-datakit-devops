@@ -40,10 +40,6 @@ Deployment job started. Job ID: %s
 
 No target org specified and no default org found. Use --target-org or set a default org with "sf org login".
 
-# error.deployFailed
-
-Deployment of Data Kit "%s" failed: %s
-
 # warning.deployTimeout
 
 Deployment of Data Kit "%s" is still in progress. Run the following command to check its status:

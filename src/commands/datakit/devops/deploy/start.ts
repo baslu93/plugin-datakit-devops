@@ -111,7 +111,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
 
     if (TERMINAL_FAILURE.has(jobStatus)) {
       mso.error();
-      throw messages.createError('error.deployFailed', [developerName, errorMessage ?? 'Unknown error']);
+      throw new Error(errorMessage ?? 'Unknown error');
     }
 
     mso.stop();
