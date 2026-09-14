@@ -15,7 +15,7 @@ describe('datakit devops deploy status', () => {
 
   it('returns the current status immediately when --wait is not provided', async () => {
     $$.SANDBOX.stub(Connection.prototype, 'query').resolves({
-      records: [{ Id: '08PFT00000KwdDc', Status: 'Completed', Error: undefined }],
+      records: [{ Id: '08PFT00000KwdDc', Status: 'Complete', Error: undefined }],
       done: true,
       totalSize: 1,
     });
@@ -26,7 +26,7 @@ describe('datakit devops deploy status', () => {
     ]);
 
     expect(result.jobId).to.equal('08PFT00000KwdDc');
-    expect(result.jobStatus).to.equal('Completed');
+    expect(result.jobStatus).to.equal('Complete');
   });
 
   it('throws when the deployment has failed and --wait is provided', async () => {

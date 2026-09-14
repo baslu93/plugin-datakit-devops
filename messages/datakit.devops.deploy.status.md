@@ -1,6 +1,6 @@
 # summary
 
-Check the status of an in-progress DataKit deployment.
+Check the status of an in-progress Data Kit deployment.
 
 # description
 

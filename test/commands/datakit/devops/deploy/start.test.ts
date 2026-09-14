@@ -19,7 +19,7 @@ describe('datakit devops deploy start', () => {
     (Connection.prototype.request as sinon.SinonStub).resolves({ jobId: '08PFT00000KwdDc' });
 
     $$.SANDBOX.stub(Connection.prototype, 'query').resolves({
-      records: [{ Id: '08PFT00000KwdDc', Status: 'Completed', Error: undefined }],
+      records: [{ Id: '08PFT00000KwdDc', Status: 'Complete', Error: undefined }],
       done: true,
       totalSize: 1,
     });
@@ -30,7 +30,7 @@ describe('datakit devops deploy start', () => {
     ]);
 
     expect(result.jobId).to.equal('08PFT00000KwdDc');
-    expect(result.jobStatus).to.equal('Completed');
+    expect(result.jobStatus).to.equal('Complete');
     expect(result.developerName).to.equal('MyDataKit');
   });
 });

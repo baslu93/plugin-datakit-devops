@@ -2,7 +2,7 @@ import { Connection, PollingClient, StatusResult } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import { BackgroundOperationRecord } from '../types/datapackagedefinition.js';
 
-export const TERMINAL_SUCCESS = new Set(['Completed']);
+export const TERMINAL_SUCCESS = new Set(['Complete']);
 export const TERMINAL_FAILURE = new Set(['Failed', 'Error', 'Aborted']);
 
 export type DeploymentStatusPollResult = {

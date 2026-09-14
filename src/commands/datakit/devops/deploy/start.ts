@@ -52,7 +52,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
     const waitDuration = flags['wait'] as Duration;
     const connection = org.getConnection(flags['api-version'] as string | undefined);
 
-    this.spinner.start(`Deploying DataKit "${developerName}" to org "${org.getUsername() ?? org.getOrgId()}"`);
+    this.spinner.start(`Deploying Data Kit "${developerName}" to org "${org.getUsername() ?? org.getOrgId()}"`);
 
     const url = `/ssot/data-kits/${developerName}?asyncMode=true${dataSpace ? `&dataspace=${encodeURIComponent(dataSpace)}` : ''}`;
 
