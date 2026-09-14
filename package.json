@@ -19,7 +19,6 @@
     "prepack": "npm run build && oclif manifest",
     "postpack": "rm -f oclif.manifest.json",
     "lint": "eslint src --ext .ts",
-    "postinstall": "node -e \"try { require('@oclif/dev-cli').amendPluginShortcuts() } catch(e) {}\"",
     "test": "mocha"
   },
   "ts-node": {
@@ -32,7 +31,6 @@
     "@salesforce/sf-plugins-core": "^11"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1",
     "@salesforce/cli-plugins-testkit": "^5",
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
@@ -41,7 +39,7 @@
     "@types/xml2js": "^0.4.14",
     "chai": "^6.2.2",
     "mocha": "^12.0.0",
-    "oclif": "^3",
+    "oclif": "^5",
     "sinon": "^22.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5"
