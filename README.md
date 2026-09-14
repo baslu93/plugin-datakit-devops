@@ -51,11 +51,13 @@ Deploy a DataKit to the target org using the Data 360 Connect API.
 
 ```
 USAGE
-  $ sf datakit devops deploy start -n <value> [-o <value>] [--api-version <value>] [-w <value>]
+  $ sf datakit devops deploy start -n <value> [-o <value>] [-s <value>] [--api-version <value>] [-w <value>]
 
 FLAGS
   -n, --developer-name=<value>  (required) Developer name of the DataKit to deploy.
   -o, --target-org=<value>      Username or alias of the target org.
+  -s, --data-space=<value>      Developer name of the data space to deploy into. If omitted, the default data space is
+                                used.
   -w, --wait=<value>            [default: 10 minutes] Number of minutes to wait for the deployment to complete before
                                 timing out.
   --api-version=<value>         Override the api version used for api requests made by this command

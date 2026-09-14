@@ -14,6 +14,10 @@ Developer name of the DataKit to deploy.
 
 Username or alias of the target org.
 
+# flags.data-space.summary
+
+Developer name of the data space to deploy into. If omitted, the default data space is used.
+
 # flags.wait.summary
 
 Number of minutes to wait for the deployment to complete before timing out.
