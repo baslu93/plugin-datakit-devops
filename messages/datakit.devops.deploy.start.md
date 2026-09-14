@@ -14,10 +14,6 @@ Developer name of the Data Kit to deploy.
 
 Username or alias of the target org.
 
-# flags.data-space.summary
-
-Developer name of the data space to deploy into. If omitted, the default data space is used.
-
 # flags.wait.summary
 
 Number of minutes to wait for the deployment to complete before timing out.
@@ -26,15 +22,15 @@ Number of minutes to wait for the deployment to complete before timing out.
 
 - Deploy a Data Kit to the default org:
 
-  <%= config.bin %> <%= command.id %> --developer-name MyData Kit
+  <%= config.bin %> <%= command.id %> --developer-name MyDataKit
 
 - Deploy a Data Kit to a specific org:
 
-  <%= config.bin %> <%= command.id %> --developer-name MyData Kit --target-org myOrg
+  <%= config.bin %> <%= command.id %> --developer-name MyDataKit --target-org myOrg
 
 - Deploy and return the result as JSON:
 
-  <%= config.bin %> <%= command.id %> --developer-name MyData Kit --target-org myOrg --json
+  <%= config.bin %> <%= command.id %> --developer-name MyDataKit --target-org myOrg --json
 
 # info.jobId
 

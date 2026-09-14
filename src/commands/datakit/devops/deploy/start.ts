@@ -28,10 +28,6 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
     'target-org': Flags.optionalOrg({
       summary: messages.getMessage('flags.target-org.summary'),
     }),
-    'data-space': Flags.string({
-      summary: messages.getMessage('flags.data-space.summary'),
-      char: 's',
-    }),
     'api-version': Flags.orgApiVersion(),
     wait: Flags.duration({
       summary: messages.getMessage('flags.wait.summary'),
@@ -48,13 +44,12 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
     const org = flags['target-org'] as Org | undefined;
     if (!org) throw messages.createError('error.noTargetOrg');
     const developerName = flags['developer-name'] as string;
-    const dataSpace = flags['data-space'] as string | undefined;
     const waitDuration = flags['wait'] as Duration;
     const connection = org.getConnection(flags['api-version'] as string | undefined);
 
     this.spinner.start(`Deploying Data Kit "${developerName}" to org "${org.getUsername() ?? org.getOrgId()}"`);
 
-    const url = `/ssot/data-kits/${developerName}?asyncMode=true${dataSpace ? `&dataspace=${encodeURIComponent(dataSpace)}` : ''}`;
+    const url = `/ssot/data-kits/${developerName}?asyncMode=true`;
 
     const response = await connection.request<DatakitDevopsDeployResponse>({
       method: 'POST',
