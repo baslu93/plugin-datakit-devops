@@ -59,7 +59,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
       stages: [`Deploying Data Kit ${developerName}`],
       jsonEnabled: this.jsonEnabled(),
       timerUnit: 's',
-      data: { username, status: '', jobId: '' },
+      data: { username, status: '', jobId: '-' },
       postStagesBlock: [
         {
           label: 'Status',
