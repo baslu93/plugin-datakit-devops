@@ -56,8 +56,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
     const username = org.getUsername() ?? org.getOrgId() ?? '';
 
     const mso = new MultiStageOutput<DeployData>({
-      title: `Deploying Data Kit "${developerName}"`,
-      stages: ['Deploying'],
+      stages: [`Deploying Data Kit ${developerName}`],
       jsonEnabled: this.jsonEnabled(),
       timerUnit: 's',
       data: { username, status: '', jobId: '' },
@@ -83,7 +82,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
       ],
     });
 
-    mso.skipTo('Deploying', { username });
+    mso.skipTo(`Deploying Data Kit ${developerName}`, { username });
 
     const response = await connection.request<DatakitDevopsDeployResponse>({
       method: 'POST',
