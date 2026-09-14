@@ -43,7 +43,7 @@
         "description": "Commands for DataKit operations"
       },
       "datakit devops deploy": {
-        "description": "Deploy DataKit objects and track deployment status using the Data Cloud Connect API"
+        "description": "Deploy DataKit objects and track deployment status using the Data 360 Connect API"
       }
     },
     "flexibleTaxonomy": true

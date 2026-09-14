@@ -1,10 +1,10 @@
 # summary
 
-Deploy a DataKit to the target org using the Data Cloud Connect API.
+Deploy a DataKit to the target org using the Data 360 Connect API.
 
 # description
 
-Calls the Data Cloud Connect API to deploy a DataKit asynchronously, then polls the BackgroundOperation record until the deployment reaches a terminal status. Returns the job ID and final status.
+Calls the Data 360 Connect API to deploy a DataKit asynchronously, then polls the BackgroundOperation record until the deployment reaches a terminal status. Returns the job ID and final status.
 
 # flags.developer-name.summary
 

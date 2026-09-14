@@ -3,11 +3,11 @@
 [![Version](https://img.shields.io/npm/v/plugin-devops-datakit.svg)](https://npmjs.org/package/plugin-devops-datakit)
 [![License](https://img.shields.io/npm/l/plugin-devops-datakit.svg)](https://github.com/baslu93/plugin-devops-datakit/blob/main/LICENSE)
 
-A Salesforce CLI plugin for deploying and tracking Data Cloud DevOps DataKits using the Data Cloud Connect API.
+A Salesforce CLI plugin for deploying and tracking Data 360 DevOps DataKits using the Data 360 Connect API.
 
 ## Overview
 
-A DevOps DataKit is a versioned bundle of Data Cloud components that can be promoted across orgs. This plugin provides two commands built on the Data Cloud Connect API:
+A DevOps DataKit is a versioned bundle of Data 360 components that can be promoted across orgs. This plugin provides two commands built on the Data 360 Connect API:
 
 - **`datakit devops deploy start`** — triggers an async deployment and polls `BackgroundOperation` until it reaches a terminal state, surfacing any errors.
 - **`datakit devops deploy status`** — checks the status of a deployment by job ID; pass `--wait` to poll until completion, or omit it to get the current status immediately.
@@ -47,7 +47,7 @@ npm run build
 
 ## `sf datakit devops deploy start`
 
-Deploy a DataKit to the target org using the Data Cloud Connect API.
+Deploy a DataKit to the target org using the Data 360 Connect API.
 
 ```
 USAGE
@@ -61,10 +61,10 @@ FLAGS
   --api-version=<value>         Override the api version used for api requests made by this command
 
 DESCRIPTION
-  Deploy a DataKit to the target org using the Data Cloud Connect API.
+  Deploy a DataKit to the target org using the Data 360 Connect API.
 
-  Calls the Data Cloud Connect API to deploy a DataKit asynchronously, then polls the BackgroundOperation record until
-  the deployment reaches a terminal status. Returns the job ID and final status.
+  Calls the Data 360 Connect API to deploy a DataKit asynchronously, then polls the BackgroundOperation record until the
+  deployment reaches a terminal status. Returns the job ID and final status.
 
 EXAMPLES
   Deploy a DataKit to the default org:
