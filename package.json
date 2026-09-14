@@ -42,7 +42,7 @@
       "datakit": {
         "description": "Commands for DataKit operations"
       },
-      "datakit deploy devops": {
+      "datakit devops deploy": {
         "description": "Deploy DataKit objects and track deployment status using the Data Cloud Connect API"
       }
     },

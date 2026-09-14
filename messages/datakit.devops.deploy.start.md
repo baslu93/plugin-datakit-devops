@@ -48,7 +48,7 @@ Deployment of DataKit "%s" failed: %s
 
 Deployment of DataKit "%s" is still in progress. Run the following command to check its status:
 
-  sf datakit deploy devops status --job-id %s
+  sf datakit devops deploy status --job-id %s
 
 # success
 

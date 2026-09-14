@@ -3,14 +3,14 @@
 [![Version](https://img.shields.io/npm/v/plugin-devops-datakit.svg)](https://npmjs.org/package/plugin-devops-datakit)
 [![License](https://img.shields.io/npm/l/plugin-devops-datakit.svg)](https://github.com/baslu93/plugin-devops-datakit/blob/main/LICENSE)
 
-A Salesforce CLI plugin for working with Data Cloud DataKits.
+A Salesforce CLI plugin for deploying and tracking Data Cloud DevOps DataKits using the Data Cloud Connect API.
 
 ## Overview
 
-DataKits are bundles of Data Cloud components (data streams, data lake objects, transforms, and more) that can be deployed together to a Salesforce org. This plugin provides commands to:
+A DevOps DataKit is a versioned bundle of Data Cloud components that can be promoted across orgs. This plugin provides two commands built on the Data Cloud Connect API:
 
-- **Deploy** a DevOps DataKit to an org via the Data Cloud Connect API, with automatic async polling until the deployment completes.
-- **Check status** of a running deployment by job ID — either immediately or by waiting until a terminal state is reached.
+- **`datakit devops deploy start`** — triggers an async deployment and polls `BackgroundOperation` until it reaches a terminal state, surfacing any errors.
+- **`datakit devops deploy status`** — checks the status of a deployment by job ID; pass `--wait` to poll until completion, or omit it to get the current status immediately.
 
 ## Installation
 
@@ -42,16 +42,16 @@ npm run build
 <!-- tocstop -->
 
 <!-- commands -->
-* [`sf datakit deploy devops start`](#sf-datakit-deploy-devops-start)
-* [`sf datakit deploy devops status`](#sf-datakit-deploy-devops-status)
+* [`sf datakit devops deploy start`](#sf-datakit-devops-deploy-start)
+* [`sf datakit devops deploy status`](#sf-datakit-devops-deploy-status)
 
-## `sf datakit deploy devops start`
+## `sf datakit devops deploy start`
 
 Deploy a DataKit to the target org using the Data Cloud Connect API.
 
 ```
 USAGE
-  $ sf datakit deploy devops start -n <value> [-o <value>] [--api-version <value>] [-w <value>]
+  $ sf datakit devops deploy start -n <value> [-o <value>] [--api-version <value>] [-w <value>]
 
 FLAGS
   -n, --developer-name=<value>  (required) Developer name of the DataKit to deploy.
@@ -69,27 +69,27 @@ DESCRIPTION
 EXAMPLES
   Deploy a DataKit to the default org:
 
-    $ sf datakit deploy devops start --developer-name MyDataKit
+    $ sf datakit devops deploy start --developer-name MyDataKit
 
   Deploy a DataKit to a specific org:
 
-    $ sf datakit deploy devops start --developer-name MyDataKit --target-org myOrg
+    $ sf datakit devops deploy start --developer-name MyDataKit --target-org myOrg
 
   Deploy and return the result as JSON:
 
-    $ sf datakit deploy devops start --developer-name MyDataKit --target-org myOrg --json
+    $ sf datakit devops deploy start --developer-name MyDataKit --target-org myOrg --json
 ```
 
-## `sf datakit deploy devops status`
+## `sf datakit devops deploy status`
 
 Check the status of an in-progress DataKit deployment.
 
 ```
 USAGE
-  $ sf datakit deploy devops status -i <value> [-o <value>] [--api-version <value>] [-w <value>]
+  $ sf datakit devops deploy status -i <value> [-o <value>] [--api-version <value>] [-w <value>]
 
 FLAGS
-  -i, --job-id=<value>      (required) Job ID returned by the "sf datakit devops start" command.
+  -i, --job-id=<value>      (required) Job ID returned by the "sf datakit devops deploy start" command.
   -o, --target-org=<value>  Username or alias of the target org.
   -w, --wait=<value>        Number of minutes to wait for the deployment to complete. If omitted, returns the current
                             status immediately without waiting.
@@ -104,11 +104,11 @@ DESCRIPTION
 EXAMPLES
   Check deployment status:
 
-    $ sf datakit deploy devops status --job-id 0BkXx000000xxxxx
+    $ sf datakit devops deploy status --job-id 0BkXx000000xxxxx
 
   Check deployment status and return result as JSON:
 
-    $ sf datakit deploy devops status --job-id 0BkXx000000xxxxx --json
+    $ sf datakit devops deploy status --job-id 0BkXx000000xxxxx --json
 ```
 <!-- commandsstop -->
 

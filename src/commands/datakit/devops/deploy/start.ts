@@ -5,7 +5,7 @@ import { pollBackgroundOperation, TERMINAL_FAILURE } from '../../../../helpers/d
 import { DatakitDevopsDeployResponse } from '../../../../types/datapackagedefinition.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('plugin-devops-datakit', 'datakit.deploy.devops.start');
+const messages = Messages.loadMessages('plugin-devops-datakit', 'datakit.devops.deploy.start');
 
 export type DatakitDevopsStartResult = {
   developerName: string;

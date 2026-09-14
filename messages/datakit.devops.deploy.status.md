@@ -8,7 +8,7 @@ Polls the BackgroundOperation record for the given job ID until the deployment r
 
 # flags.job-id.summary
 
-Job ID returned by the "sf datakit devops start" command.
+Job ID returned by the "sf datakit devops deploy start" command.
 
 # flags.target-org.summary
 
