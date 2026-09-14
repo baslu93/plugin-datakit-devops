@@ -52,7 +52,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
     const response = await connection.request<DatakitDevopsDeployResponse>({
       method: 'POST',
       url: `/ssot/data-kits/${developerName}?asyncMode=true`,
-      body: JSON.stringify({ developerName }),
+      body: JSON.stringify({}),
       headers: { 'Content-Type': 'application/json' },
     });
 
