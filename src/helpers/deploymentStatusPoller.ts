@@ -28,7 +28,8 @@ export async function getBackgroundOperationStatus(
 export async function pollBackgroundOperation(
   connection: Connection,
   jobId: string,
-  waitDuration: Duration
+  waitDuration: Duration,
+  onPoll?: (status: string) => void
 ): Promise<DeploymentStatusPollResult> {
   let jobStatus = '';
   let errorMessage: string | undefined;
@@ -46,6 +47,7 @@ export async function pollBackgroundOperation(
 
       jobStatus = records[0].Status;
       errorMessage = records[0].Error;
+      onPoll?.(jobStatus);
 
       return { completed: TERMINAL_SUCCESS.has(jobStatus) || TERMINAL_FAILURE.has(jobStatus) };
     },

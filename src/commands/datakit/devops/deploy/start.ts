@@ -1,3 +1,4 @@
+import { MultiStageOutput } from '@oclif/multi-stage-output';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages, Org } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
@@ -12,6 +13,12 @@ export type DatakitDevopsStartResult = {
   jobId: string;
   jobStatus: string;
   errorMessage?: string;
+};
+
+type DeployData = {
+  jobId?: string;
+  status?: string;
+  username?: string;
 };
 
 export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsStartResult> {
@@ -46,38 +53,68 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
     const developerName = flags['developer-name'] as string;
     const waitDuration = flags['wait'] as Duration;
     const connection = org.getConnection(flags['api-version'] as string | undefined);
+    const username = org.getUsername() ?? org.getOrgId() ?? '';
 
-    this.spinner.start(`Deploying Data Kit "${developerName}" to org "${org.getUsername() ?? org.getOrgId()}"`);
+    const mso = new MultiStageOutput<DeployData>({
+      title: `Deploying Data Kit "${developerName}"`,
+      stages: ['Deploying'],
+      jsonEnabled: this.jsonEnabled(),
+      timerUnit: 's',
+      postStagesBlock: [
+        {
+          label: 'Status',
+          get: (data) => data?.status,
+          bold: true,
+          type: 'dynamic-key-value',
+          onlyShowAtEndInCI: true,
+        },
+        {
+          label: 'Deploy ID',
+          get: (data) => data?.jobId,
+          type: 'static-key-value',
+          neverCollapse: true,
+        },
+        {
+          label: 'Target Org',
+          get: (data) => data?.username,
+          type: 'static-key-value',
+        },
+      ],
+    });
 
-    const url = `/ssot/data-kits/${developerName}?asyncMode=true`;
+    mso.skipTo('Deploying', { username });
 
     const response = await connection.request<DatakitDevopsDeployResponse>({
       method: 'POST',
-      url,
+      url: `/ssot/data-kits/${developerName}?asyncMode=true`,
       body: JSON.stringify({}),
       headers: { 'Content-Type': 'application/json' },
     });
 
     const { jobId } = response;
-    this.spinner.stop('started');
-    this.log(messages.getMessage('info.jobId', [jobId]));
+    mso.updateData({ jobId, status: 'Queued' });
 
-    this.spinner.start('Waiting for deployment to complete...');
+    const { jobStatus, timedOut, errorMessage } = await pollBackgroundOperation(
+      connection,
+      jobId,
+      waitDuration,
+      (status) => mso.updateData({ status })
+    );
 
-    const { jobStatus, timedOut, errorMessage } = await pollBackgroundOperation(connection, jobId, waitDuration);
-
-    this.spinner.stop(timedOut ? 'timed out' : TERMINAL_FAILURE.has(jobStatus) ? 'failed' : 'done');
+    mso.updateData({ status: jobStatus });
 
     if (timedOut) {
+      mso.error();
       this.warn(messages.getMessage('warning.deployTimeout', [developerName, jobId]));
       return { developerName, jobId, jobStatus: 'InProgress' };
     }
 
     if (TERMINAL_FAILURE.has(jobStatus)) {
+      mso.error();
       throw messages.createError('error.deployFailed', [developerName, errorMessage ?? 'Unknown error']);
     }
 
-    this.log(messages.getMessage('success', [developerName, org.getUsername() ?? org.getOrgId()]));
+    mso.stop();
 
     return { developerName, jobId, jobStatus };
   }

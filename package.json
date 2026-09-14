@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@oclif/core": "^4",
+    "@oclif/multi-stage-output": "^1.0.0",
     "@salesforce/core": "^8",
     "@salesforce/sf-plugins-core": "^11"
   },
