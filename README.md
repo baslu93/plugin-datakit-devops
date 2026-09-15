@@ -1,7 +1,7 @@
 # plugin-datakit-devops
 
 [![Version](https://img.shields.io/npm/v/plugin-datakit-devops.svg)](https://npmjs.org/package/plugin-datakit-devops)
-[![License](https://img.shields.io/npm/l/plugin-datakit-devops.svg)](https://github.com/baslu93/plugin-datakit-devops/blob/main/LICENSE)
+[![Weekly Downloads](https://badgen.net/npm/dw/plugin-datakit-devops)](https://npmjs.org/package/plugin-datakit-devops)
 
 A Salesforce CLI plugin for deploying and tracking Data 360 DevOps DataKits using the Data 360 Connect API.
 
