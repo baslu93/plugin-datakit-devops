@@ -14,7 +14,7 @@ export type DeploymentStatusPollResult = {
 
 async function getDeploymentError(connection: Connection, jobId: string): Promise<string | undefined> {
   const { records } = await connection.query<DataKitDeploymentLogRecord>(
-    `SELECT DeploymentError FROM DataKitDeploymentLog WHERE DeployJob = '${jobId}' LIMIT 1`
+    `SELECT DeploymentError FROM DataKitDeploymentLog WHERE JobIdentifier = '${jobId}' LIMIT 1`
   );
   return records[0]?.DeploymentError;
 }
