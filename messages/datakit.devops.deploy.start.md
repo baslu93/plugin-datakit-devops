@@ -16,7 +16,7 @@ Username or alias of the target org.
 
 # flags.async.summary
 
-Start the deployment and return immediately without waiting for it to complete.
+Start the deployment and immediately return the job ID without waiting for completion.
 
 # flags.wait.summary
 
