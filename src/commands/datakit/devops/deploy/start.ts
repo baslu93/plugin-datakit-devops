@@ -103,7 +103,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
 
     if (isAsync) {
       mso.stop();
-      this.log(messages.getMessage('info.jobId', [jobId]));
+      this.warn(messages.getMessage('warning.deployTimeout', [developerName, jobId]));
       return { developerName, jobId, jobStatus: 'Queued' };
     }
 
