@@ -20,11 +20,11 @@ Number of minutes to wait for the deployment to complete. If omitted, returns th
 
 # examples
 
-- Check deployment status:
+- Report deployment status:
 
   <%= config.bin %> <%= command.id %> --job-id 0BkXx000000xxxxx
 
-- Check deployment status and return result as JSON:
+- Report deployment status and return result as JSON:
 
   <%= config.bin %> <%= command.id %> --job-id 0BkXx000000xxxxx --json
 

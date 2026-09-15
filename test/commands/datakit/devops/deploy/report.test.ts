@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import { Connection } from '@salesforce/core';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
-import DatakitDeployDevopsStatus from '../../../../../src/commands/datakit/devops/deploy/status.js';
+import DatakitDeployDevopsReport from '../../../../../src/commands/datakit/devops/deploy/report.js';
 
-describe('datakit devops deploy status', () => {
+describe('datakit devops deploy report', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
 
@@ -20,7 +20,7 @@ describe('datakit devops deploy status', () => {
       totalSize: 1,
     });
 
-    const result = await DatakitDeployDevopsStatus.run([
+    const result = await DatakitDeployDevopsReport.run([
       '--job-id', '08PFT00000KwdDc',
       '--target-org', testOrg.username,
     ]);
@@ -37,7 +37,7 @@ describe('datakit devops deploy status', () => {
     });
 
     try {
-      await DatakitDeployDevopsStatus.run([
+      await DatakitDeployDevopsReport.run([
         '--job-id', '08PFT00000KwdDc',
         '--target-org', testOrg.username,
         '--wait', '1',

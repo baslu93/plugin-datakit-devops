@@ -44,7 +44,7 @@ No target org specified and no default org found. Use --target-org or set a defa
 
 Deployment of Data Kit "%s" is still in progress. Run the following command to check its status:
 
-  sf datakit devops deploy status --job-id %s
+  sf datakit devops deploy report --job-id %s
 
 # success
 

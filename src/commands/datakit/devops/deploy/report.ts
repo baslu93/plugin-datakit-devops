@@ -8,15 +8,15 @@ import {
 } from '../../../../helpers/deploymentStatusPoller.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('plugin-datakit-devops', 'datakit.devops.deploy.status');
+const messages = Messages.loadMessages('plugin-datakit-devops', 'datakit.devops.deploy.report');
 
-export type DatakitDevopsStatusResult = {
+export type DatakitDevopsReportResult = {
   jobId: string;
   jobStatus: string;
   errorMessage?: string;
 };
 
-export default class DatakitDeployDevopsStatus extends SfCommand<DatakitDevopsStatusResult> {
+export default class DatakitDeployDevopsReport extends SfCommand<DatakitDevopsReportResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -39,8 +39,8 @@ export default class DatakitDeployDevopsStatus extends SfCommand<DatakitDevopsSt
     }),
   };
 
-  public async run(): Promise<DatakitDevopsStatusResult> {
-    const { flags } = await this.parse(DatakitDeployDevopsStatus);
+  public async run(): Promise<DatakitDevopsReportResult> {
+    const { flags } = await this.parse(DatakitDeployDevopsReport);
 
     const org = flags['target-org'] as Org | undefined;
     if (!org) throw messages.createError('error.noTargetOrg');
