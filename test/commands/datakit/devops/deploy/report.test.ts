@@ -15,7 +15,7 @@ describe('datakit devops deploy report', () => {
 
   it('returns the current status immediately when --wait is not provided', async () => {
     $$.SANDBOX.stub(Connection.prototype, 'query').resolves({
-      records: [{ Id: '08PFT00000KwdDc', Status: 'Complete', Error: undefined }],
+      records: [{ Id: '08PFT00000KwdDc', Status: 'Complete' }],
       done: true,
       totalSize: 1,
     });
@@ -30,10 +30,13 @@ describe('datakit devops deploy report', () => {
   });
 
   it('throws when the deployment has failed and --wait is provided', async () => {
-    $$.SANDBOX.stub(Connection.prototype, 'query').resolves({
-      records: [{ Id: '08PFT00000KwdDc', Status: 'Failed', Error: 'Connector inactive' }],
-      done: true,
-      totalSize: 1,
+    const errorMessage = 'Deployment has failed due to user exception.';
+
+    $$.SANDBOX.stub(Connection.prototype, 'query').callsFake((soql: string) => {
+      if (soql.includes('DataKitDeploymentLog')) {
+        return Promise.resolve({ records: [{ DeploymentError: errorMessage }], done: true, totalSize: 1 });
+      }
+      return Promise.resolve({ records: [{ Id: '08PFT00000KwdDc', Status: 'Failed' }], done: true, totalSize: 1 });
     });
 
     try {
@@ -44,7 +47,7 @@ describe('datakit devops deploy report', () => {
       ]);
       expect.fail('Expected command to throw on deployment failure');
     } catch (err) {
-      expect((err as Error).message).to.include('Connector inactive');
+      expect((err as Error).message).to.include(errorMessage);
     }
   });
 });

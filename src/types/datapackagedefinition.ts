@@ -7,3 +7,7 @@ export interface BackgroundOperationRecord {
   Status: string;
   Error?: string;
 }
+
+export interface DataKitDeploymentLogRecord {
+  DeploymentError?: string;
+}

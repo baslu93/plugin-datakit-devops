@@ -1,6 +1,6 @@
 import { Connection, PollingClient, StatusResult } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
-import { BackgroundOperationRecord } from '../types/datapackagedefinition.js';
+import { BackgroundOperationRecord, DataKitDeploymentLogRecord } from '../types/datapackagedefinition.js';
 
 export const TERMINAL_SUCCESS = new Set(['Complete']);
 export const TERMINAL_FAILURE = new Set(['Failed', 'Error', 'Aborted']);
@@ -12,17 +12,29 @@ export type DeploymentStatusPollResult = {
   errorMessage?: string;
 };
 
+async function getDeploymentError(connection: Connection, jobId: string): Promise<string | undefined> {
+  const { records } = await connection.query<DataKitDeploymentLogRecord>(
+    `SELECT DeploymentError FROM DataKitDeploymentLog WHERE DeployJob = '${jobId}' LIMIT 1`
+  );
+  return records[0]?.DeploymentError;
+}
+
 export async function getBackgroundOperationStatus(
   connection: Connection,
   jobId: string
 ): Promise<Omit<DeploymentStatusPollResult, 'timedOut'>> {
   const { records } = await connection.query<BackgroundOperationRecord>(
-    `SELECT Id, Status, Error FROM BackgroundOperation WHERE Id = '${jobId}' LIMIT 1`
+    `SELECT Id, Status FROM BackgroundOperation WHERE Id = '${jobId}' LIMIT 1`
   );
 
   if (records.length === 0) return { jobId, jobStatus: 'Unknown' };
 
-  return { jobId, jobStatus: records[0].Status, errorMessage: records[0].Error };
+  const jobStatus = records[0].Status;
+  const errorMessage = TERMINAL_FAILURE.has(jobStatus)
+    ? await getDeploymentError(connection, jobId)
+    : undefined;
+
+  return { jobId, jobStatus, errorMessage };
 }
 
 export async function pollBackgroundOperation(
@@ -32,7 +44,6 @@ export async function pollBackgroundOperation(
   onPoll?: (status: string) => void
 ): Promise<DeploymentStatusPollResult> {
   let jobStatus = '';
-  let errorMessage: string | undefined;
 
   const pollingClient = await PollingClient.create({
     frequency: Duration.seconds(3),
@@ -40,13 +51,12 @@ export async function pollBackgroundOperation(
     timeoutErrorName: 'DeploymentStatusTimeoutError',
     poll: async (): Promise<StatusResult> => {
       const { records } = await connection.query<BackgroundOperationRecord>(
-        `SELECT Id, Status, Error FROM BackgroundOperation WHERE Id = '${jobId}' LIMIT 1`
+        `SELECT Id, Status FROM BackgroundOperation WHERE Id = '${jobId}' LIMIT 1`
       );
 
       if (records.length === 0) return { completed: false };
 
       jobStatus = records[0].Status;
-      errorMessage = records[0].Error;
       onPoll?.(jobStatus);
 
       return { completed: TERMINAL_SUCCESS.has(jobStatus) || TERMINAL_FAILURE.has(jobStatus) };
@@ -61,6 +71,10 @@ export async function pollBackgroundOperation(
     }
     throw err;
   }
+
+  const errorMessage = TERMINAL_FAILURE.has(jobStatus)
+    ? await getDeploymentError(connection, jobId)
+    : undefined;
 
   return { jobId, jobStatus, timedOut: false, errorMessage };
 }
