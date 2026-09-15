@@ -36,12 +36,18 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
       summary: messages.getMessage('flags.target-org.summary'),
     }),
     'api-version': Flags.orgApiVersion(),
+    async: Flags.boolean({
+      summary: messages.getMessage('flags.async.summary'),
+      char: 'a',
+      exclusive: ['wait'],
+    }),
     wait: Flags.duration({
       summary: messages.getMessage('flags.wait.summary'),
       char: 'w',
       unit: 'minutes',
       defaultValue: 10,
       min: 1,
+      exclusive: ['async'],
     }),
   };
 
@@ -51,6 +57,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
     const org = flags['target-org'] as Org | undefined;
     if (!org) throw messages.createError('error.noTargetOrg');
     const developerName = flags['developer-name'] as string;
+    const isAsync = flags['async'] as boolean | undefined;
     const waitDuration = flags['wait'] as Duration;
     const connection = org.getConnection(flags['api-version'] as string | undefined);
     const username = org.getUsername() ?? org.getOrgId() ?? '';
@@ -93,6 +100,12 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
 
     const { jobId } = response;
     mso.updateData({ jobId, status: 'Queued' });
+
+    if (isAsync) {
+      mso.stop();
+      this.log(messages.getMessage('info.jobId', [jobId]));
+      return { developerName, jobId, jobStatus: 'Queued' };
+    }
 
     const { jobStatus, timedOut, errorMessage } = await pollBackgroundOperation(
       connection,

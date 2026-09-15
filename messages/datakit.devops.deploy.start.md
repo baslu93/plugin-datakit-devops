@@ -14,6 +14,10 @@ Developer name of the Data Kit to deploy.
 
 Username or alias of the target org.
 
+# flags.async.summary
+
+Start the deployment and return immediately without waiting for it to complete.
+
 # flags.wait.summary
 
 Number of minutes to wait for the deployment to complete before timing out.
