@@ -51,6 +51,9 @@ export default class DatakitDeployDevopsReport extends SfCommand<DatakitDevopsRe
     if (!waitDuration) {
       const { jobStatus, errorMessage } = await getBackgroundOperationStatus(connection, jobId);
       this.log(messages.getMessage('info.currentStatus', [jobStatus]));
+      if (TERMINAL_FAILURE.has(jobStatus)) {
+        throw messages.createError('error.deployFailed', [errorMessage ?? 'Unknown error']);
+      }
       return { jobId, jobStatus, errorMessage };
     }
 
