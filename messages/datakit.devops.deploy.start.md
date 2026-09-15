@@ -36,6 +36,10 @@ Number of minutes to wait for the deployment to complete before timing out.
 
 Deployment job started. Job ID: %s
 
+# error.deployFailed
+
+%s
+
 # error.noTargetOrg
 
 No target org specified and no default org found. Use --target-org or set a default org with "sf org login".

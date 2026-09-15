@@ -1,6 +1,6 @@
 import { MultiStageOutput } from '@oclif/multi-stage-output';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
-import { Messages, Org, SfError } from '@salesforce/core';
+import { Messages, Org } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import { pollBackgroundOperation, TERMINAL_FAILURE } from '../../../../helpers/deploymentStatusPoller.js';
 import { DatakitDevopsDeployResponse } from '../../../../types/datapackagedefinition.js';
@@ -111,7 +111,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
 
     if (TERMINAL_FAILURE.has(jobStatus)) {
       mso.error();
-      throw new SfError(errorMessage ?? 'Unknown error', 'DeployFailedError');
+      throw messages.createError('error.deployFailed', [errorMessage ?? 'Unknown error']);
     }
 
     mso.stop();
