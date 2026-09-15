@@ -48,6 +48,12 @@ Deployment job started. Job ID: %s
 
 No target org specified and no default org found. Use --target-org or set a default org with "sf org login".
 
+# info.asyncQueued
+
+Deploy has been queued.
+
+Run "%s datakit devops deploy report --job-id %s" to poll for completion or get the latest status.
+
 # warning.deployTimeout
 
 Deployment of Data Kit "%s" is still in progress. Run the following command to check its status:
