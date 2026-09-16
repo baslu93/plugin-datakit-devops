@@ -42,75 +42,84 @@ npm run build
 <!-- tocstop -->
 
 <!-- commands -->
+* [`sf datakit devops deploy report`](#sf-datakit-devops-deploy-report)
 * [`sf datakit devops deploy start`](#sf-datakit-devops-deploy-start)
-* [`sf datakit devops deploy status`](#sf-datakit-devops-deploy-status)
 
-## `sf datakit devops deploy start`
+## `sf datakit devops deploy report`
 
-Deploy a DataKit to the target org using the Data 360 Connect API.
+Check the status of an in-progress Data Kit deployment.
 
 ```
 USAGE
-  $ sf datakit devops deploy start -n <value> [-o <value>] [-s <value>] [--api-version <value>] [-w <value>]
+  $ sf datakit devops deploy report -i <value> [--json] [--flags-dir <value>] [-o <value>] [--api-version <value>] [-w
+  <value>]
 
 FLAGS
-  -n, --developer-name=<value>  (required) Developer name of the DataKit to deploy.
-  -o, --target-org=<value>      Username or alias of the target org.
-  -s, --data-space=<value>      Developer name of the data space to deploy into. If omitted, the default data space is
-                                used.
-  -w, --wait=<value>            [default: 10 minutes] Number of minutes to wait for the deployment to complete before
-                                timing out.
-  --api-version=<value>         Override the api version used for api requests made by this command
+  -i, --job-id=<value>       (required) Job ID returned by the "sf datakit devops deploy start" command.
+  -o, --target-org=<value>   Username or alias of the target org.
+  -w, --wait=<value>         Number of minutes to wait for the deployment to complete. If omitted, returns the current
+                             status immediately without waiting.
+      --api-version=<value>  Override the api version used for api requests made by this command
+
+GLOBAL FLAGS
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
-  Deploy a DataKit to the target org using the Data 360 Connect API.
+  Check the status of an in-progress Data Kit deployment.
 
-  Calls the Data 360 Connect API to deploy a DataKit asynchronously, then polls the BackgroundOperation record until the
-  deployment reaches a terminal status. Returns the job ID and final status.
+  Polls the BackgroundOperation record for the given job ID until the deployment reaches a terminal status (Completed,
+  Failed, Error, or Aborted).
 
 EXAMPLES
-  Deploy a DataKit to the default org:
+  Report deployment status:
+
+    $ sf datakit devops deploy report --job-id 0BkXx000000xxxxx
+
+  Report deployment status and return result as JSON:
+
+    $ sf datakit devops deploy report --job-id 0BkXx000000xxxxx --json
+```
+
+## `sf datakit devops deploy start`
+
+Start a DevOps DataKit deployment and wait for the outcome.
+
+```
+USAGE
+  $ sf datakit devops deploy start -n <value> [--json] [--flags-dir <value>] [-o <value>] [--api-version <value>] [-a | -w
+    <value>]
+
+FLAGS
+  -a, --async                   Start the deployment and immediately return the job ID without waiting for completion.
+  -n, --developer-name=<value>  (required) Developer name of the Data Kit to deploy.
+  -o, --target-org=<value>      Username or alias of the target org.
+  -w, --wait=<value>            [default: 10 minutes] Number of minutes to wait for the deployment to complete before
+                                timing out.
+      --api-version=<value>     Override the api version used for api requests made by this command
+
+GLOBAL FLAGS
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
+
+DESCRIPTION
+  Start a DevOps DataKit deployment and wait for the outcome.
+
+  Calls the Data 360 Connect API to deploy a Data Kit asynchronously, then polls the BackgroundOperation record until
+  the deployment reaches a terminal status. Returns the job ID and final status.
+
+EXAMPLES
+  Deploy a Data Kit to the default org:
 
     $ sf datakit devops deploy start --developer-name MyDataKit
 
-  Deploy a DataKit to a specific org:
+  Deploy a Data Kit to a specific org:
 
     $ sf datakit devops deploy start --developer-name MyDataKit --target-org myOrg
 
   Deploy and return the result as JSON:
 
     $ sf datakit devops deploy start --developer-name MyDataKit --target-org myOrg --json
-```
-
-## `sf datakit devops deploy status`
-
-Check the status of an in-progress DataKit deployment.
-
-```
-USAGE
-  $ sf datakit devops deploy status -i <value> [-o <value>] [--api-version <value>] [-w <value>]
-
-FLAGS
-  -i, --job-id=<value>      (required) Job ID returned by the "sf datakit devops deploy start" command.
-  -o, --target-org=<value>  Username or alias of the target org.
-  -w, --wait=<value>        Number of minutes to wait for the deployment to complete. If omitted, returns the current
-                            status immediately without waiting.
-  --api-version=<value>     Override the api version used for api requests made by this command
-
-DESCRIPTION
-  Check the status of an in-progress DataKit deployment.
-
-  Polls the BackgroundOperation record for the given job ID until the deployment reaches a terminal status (Completed,
-  Failed, Error, or Aborted).
-
-EXAMPLES
-  Check deployment status:
-
-    $ sf datakit devops deploy status --job-id 0BkXx000000xxxxx
-
-  Check deployment status and return result as JSON:
-
-    $ sf datakit devops deploy status --job-id 0BkXx000000xxxxx --json
 ```
 <!-- commandsstop -->
 

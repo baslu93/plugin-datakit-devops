@@ -1,6 +1,6 @@
 # summary
 
-Deploy a Data Kit to the target org using the Data 360 Connect API.
+Start a DevOps DataKit deployment and wait for the outcome.
 
 # description
 
