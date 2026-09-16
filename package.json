@@ -1,7 +1,7 @@
 {
   "name": "plugin-datakit-devops",
-  "version": "0.1.0",
-  "description": "Salesforce CLI plugin for DataKit operations",
+  "version": "0.2.0",
+  "description": "Salesforce CLI plugin that automates the UI \"Deploy Data Kit\" action for DevOps Data Kits via the Connect API",
   "author": "Salesforce",
   "license": "Apache-2.0",
   "type": "module",

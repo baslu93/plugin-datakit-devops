@@ -3,14 +3,14 @@
 [![Version](https://img.shields.io/npm/v/plugin-datakit-devops.svg)](https://npmjs.org/package/plugin-datakit-devops)
 [![Weekly Downloads](https://badgen.net/npm/dw/plugin-datakit-devops)](https://npmjs.org/package/plugin-datakit-devops)
 
-A Salesforce CLI plugin for deploying and tracking Data 360 DevOps DataKits using the Data 360 Connect API.
+Salesforce CLI plugin that automates the UI "Deploy Data Kit" action for DevOps Data Kits via the Connect API.
 
 ## Overview
 
-A DevOps DataKit is a versioned bundle of Data 360 components that can be promoted across orgs. This plugin provides two commands built on the Data 360 Connect API:
+A DevOps Data Kit is a versioned bundle of Data 360 components that can be promoted across orgs. This plugin provides two commands built on the Data 360 Connect API:
 
 - **`datakit devops deploy start`** — triggers an async deployment and polls `BackgroundOperation` until it reaches a terminal state, surfacing any errors.
-- **`datakit devops deploy status`** — checks the status of a deployment by job ID; pass `--wait` to poll until completion, or omit it to get the current status immediately.
+- **`datakit devops deploy report`** — checks the status of a deployment by job ID; pass `--wait` to poll until completion, or omit it to get the current status immediately.
 
 ## Installation
 
