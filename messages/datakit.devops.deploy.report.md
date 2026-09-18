@@ -36,9 +36,9 @@ Current deployment status: %s
 
 No target org specified and no default org found. Use --target-org or set a default org with "sf org login".
 
-# error.deployFailed
+# error.deployJobFailed
 
-Deployment failed: %s
+%s
 
 # warning.timeout
 

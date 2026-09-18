@@ -52,7 +52,7 @@ export default class DatakitDeployDevopsReport extends SfCommand<DatakitDevopsRe
       const { jobStatus, errorMessage } = await getBackgroundOperationStatus(connection, jobId);
       this.log(messages.getMessage('info.currentStatus', [jobStatus]));
       if (TERMINAL_FAILURE.has(jobStatus)) {
-        throw messages.createError('error.deployFailed', [errorMessage ?? 'Unknown error']);
+        throw messages.createError('error.deployJobFailed', [errorMessage ?? 'Unknown error']);
       }
       return { jobId, jobStatus, errorMessage };
     }
@@ -69,7 +69,7 @@ export default class DatakitDeployDevopsReport extends SfCommand<DatakitDevopsRe
     }
 
     if (TERMINAL_FAILURE.has(jobStatus)) {
-      throw messages.createError('error.deployFailed', [errorMessage ?? 'Unknown error']);
+      throw messages.createError('error.deployJobFailed', [errorMessage ?? 'Unknown error']);
     }
 
     this.log(messages.getMessage('success'));

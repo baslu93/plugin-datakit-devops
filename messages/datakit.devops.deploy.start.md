@@ -40,7 +40,11 @@ Number of minutes to wait for the deployment to complete before timing out.
 
 Deployment job started. Job ID: %s
 
-# error.deployFailed
+# error.deployRequestFailed
+
+%s
+
+# error.deployJobFailed
 
 %s
 

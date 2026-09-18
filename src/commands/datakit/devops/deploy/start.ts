@@ -91,12 +91,17 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
 
     mso.skipTo(`Deploying Data Kit ${developerName}`, { username });
 
-    const response = await connection.request<DatakitDevopsDeployResponse>({
-      method: 'POST',
-      url: `/ssot/data-kits/${developerName}?asyncMode=true`,
-      body: '{}',
-      headers: { 'Content-Type': 'application/json' },
-    });
+    let response: DatakitDevopsDeployResponse;
+    try {
+      response = await connection.request<DatakitDevopsDeployResponse>({
+        method: 'POST',
+        url: `/ssot/data-kits/${developerName}?asyncMode=true`,
+        body: '{}',
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch (err) {
+      throw messages.createError('error.deployRequestFailed', [(err as Error).message]);
+    }
 
     const { jobId } = response;
     mso.updateData({ jobId, status: 'Queued' });
@@ -124,7 +129,7 @@ export default class DatakitDeployDevopsStart extends SfCommand<DatakitDevopsSta
 
     if (TERMINAL_FAILURE.has(jobStatus)) {
       mso.error();
-      throw messages.createError('error.deployFailed', [errorMessage ?? 'Unknown error']);
+      throw messages.createError('error.deployJobFailed', [errorMessage ?? 'Unknown error']);
     }
 
     mso.stop();
