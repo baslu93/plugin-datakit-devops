@@ -51,10 +51,13 @@
     "topicSeparator": " ",
     "topics": {
       "datakit": {
-        "description": "Commands for DataKit operations"
+        "description": "Commands for Data Kit operations"
+      },
+      "datakit devops": {
+        "description": "Commands for DevOps Data Kit operations"
       },
       "datakit devops deploy": {
-        "description": "Deploy DataKit objects and track deployment status using the Data 360 Connect API"
+        "description": "Deploy Data Kit using the Data 360 Connect APIs and track deployment status"
       }
     },
     "flexibleTaxonomy": true
